@@ -16,6 +16,7 @@
       />
       <div class="footer">
         <input
+          v-model="data.date"
           class="date"
           placeholder="ДД.ММ.ГГГГ"
           maxlength="19"
@@ -35,23 +36,23 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useNoteStore } from "../stores/NoteStore";
 
-const route = useRouter();
+const router = useRouter();
 const noteStore = useNoteStore();
 
 const data = ref({
   title: "",
   text: "",
   date: "",
-  name: "",
+  name: null,
 });
 
 const handleSubmit = () => {
   noteStore.postNote(data.value);
-  route.push("/");
+  router.push({ path: "/" });
 };
 
 const isDisabled = computed(() => {

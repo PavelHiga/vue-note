@@ -20,6 +20,18 @@ export const useNoteStore = defineStore("taskStore", () => {
     }
   };
 
+  const getNoteById = async (id) => {
+    status.value = "loading";
+    try {
+      const res = await axios.get(API + id);
+      notes.value = res.data;
+      status.value = "success";
+    } catch (error) {
+      console.log(error);
+      status.value = "error";
+    }
+  };
+
   const postNote = async (data) => {
     status.value = "loading";
     try {
@@ -29,6 +41,7 @@ export const useNoteStore = defineStore("taskStore", () => {
           "Content-Type": "application/json",
         },
       });
+      notes.value.push(res.data);
       status.value = "success";
     } catch (error) {
       console.log(error);
@@ -40,6 +53,7 @@ export const useNoteStore = defineStore("taskStore", () => {
     status.value = "loading";
     try {
       const res = await axios.delete(API + id);
+      notes.value = notes.value.filter((el) => el.id !== id);
       status.value = "success";
     } catch (error) {
       console.log(error);
@@ -51,6 +65,7 @@ export const useNoteStore = defineStore("taskStore", () => {
     status,
     notes,
     getNotes,
+    getNoteById,
     postNote,
     deleteNote,
   };

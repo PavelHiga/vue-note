@@ -1,16 +1,31 @@
 <template>
-  <div class="wrapper">
-    <div v-for="{ id, title, text, name, date } in data" :key="id">
-      <Note :id="id" :title="title" :text="text" :name="name" :date="date" />
+  <div>
+    <div v-if="noteStore.status === 'loading'" class="wrapper">
+      <div v-for="item in skeletonArr" :key="item">
+        <NoteListSkeleton />
+      </div>
+    </div>
+    <div v-else class="wrapper">
+      <div v-for="{ id, title, text, date } in data" :key="id">
+        <NoteListItem :id="id" :title="title" :text="text" :date="date" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import Note from "./Note.vue";
+import { computed } from "vue";
+import { useNoteStore } from "../stores/NoteStore";
+import NoteListItem from "./NoteListItem.vue";
+import NoteListSkeleton from "./NoteListSkeleton.vue";
 
 defineProps({
   data: Array,
+});
+
+const noteStore = useNoteStore();
+const skeletonArr = computed(() => {
+  return [...new Array(6)];
 });
 </script>
 

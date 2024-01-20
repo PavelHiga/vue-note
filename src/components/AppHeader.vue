@@ -1,20 +1,24 @@
 <template>
   <div class="header">
-    <RouterLink to="/">
+    <router-link to="/">
       <h1>Notes</h1>
-    </RouterLink>
-    <RouterLink to="/create">
+    </router-link>
+    <router-link to="/create">
       <div v-show="isCreatePage">
-        <button @click="$router.push('/')" class="button-80" role="button">
+        <button
+          @click="$router.push({ path: '/' })"
+          class="button-80"
+          role="button"
+        >
           Создать
         </button>
       </div>
-    </RouterLink>
+    </router-link>
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();

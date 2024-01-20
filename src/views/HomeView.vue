@@ -8,6 +8,7 @@ import NoteList from "../components/NoteList.vue";
 import { useNoteStore } from "../stores/NoteStore";
 
 const noteStore = useNoteStore();
+
 onMounted(() => {
   noteStore.getNotes();
 });

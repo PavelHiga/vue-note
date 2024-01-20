@@ -5,7 +5,7 @@
       <p @click="handeleDelete(id)" class="confirm__delete">Удалить</p>
     </div>
     <div v-else class="note">
-      <p @click="$router.push('/' + id)" class="title">{{ title }}</p>
+      <p @click="$router.push({ path: '/' + id })" class="title">{{ title }}</p>
       <p class="text">
         {{ text }}
       </p>
@@ -30,15 +30,16 @@ const props = defineProps({
   id: String,
   title: String,
   text: String,
-  name: String,
   date: Number | null,
 });
+
+console.log("note list", props.id);
 
 const noteStore = useNoteStore();
 const isConfirm = ref(false);
 
 const isDate = computed(() => {
-  return props.date != null ? props.date : "";
+  return props.date !== null ? props.date : "";
 });
 
 const closeEllement = () => {
@@ -92,6 +93,10 @@ const handeleDelete = (id) => {
   color: rgb(253, 119, 119);
   cursor: pointer;
 }
+.header {
+  display: flex;
+  justify-content: space-between;
+}
 .title {
   text-align: left;
   width: fit-content;
@@ -108,11 +113,9 @@ const handeleDelete = (id) => {
   font-weight: 600;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
+.text {
+  word-wrap: break-word;
 }
-
 .buttons {
   display: flex;
   visibility: hidden;
