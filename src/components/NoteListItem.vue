@@ -33,8 +33,6 @@ const props = defineProps({
   date: Number | null,
 });
 
-console.log("note list", props.id);
-
 const noteStore = useNoteStore();
 const isConfirm = ref(false);
 
